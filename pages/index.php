@@ -58,39 +58,9 @@ $smarty->assign('CONNECT_WITH', $connect_with);
 
 // Query the main IP
 // Are we using the built-in query or an external API?
-$external_query = $queries->getWhere('settings', array('name', '=', 'external_query'));
-$external_query = $external_query[0]->value;
-
-if($external_query == 'false'){
-	// Built in query, continue as normal
-	require('core/integration/status/global.php'); 
-} else {
-	// External query
-	$cache = new Cache();
-	require('core/integration/status/global_external.php');
-}
-
-if(empty($Info)){
-	// Unable to query, offline
-	$smarty->assign('MAIN_ONLINE', 0);
-} else {
-	// Able to query, online
-	$smarty->assign('MAIN_ONLINE', 1);
-}
-
-// Player count
-if($pre17 == 0){
-	$player_count = $Info['players']['online'];
-} else {
-	$player_count = $Info['Players'];
-}
-
-if($player_count == 1)
-	$smarty->assign('PLAYERS_ONLINE', $general_language['1_player_online']);
-else if($player_count > 1)
-	$smarty->assign('PLAYERS_ONLINE', str_replace('{x}', $player_count, $general_language['x_players_online']));
-else
-	$smarty->assign('PLAYERS_ONLINE', $general_language['no_players_online']);
+<script src="pages/js/jquery.min.js"></script>
+<script type="text/javascript" src="pages/js/clipboard.min.js"></script>
+	<script type="text/javascript" src="jpages/js/scripts.js"></script>
 ?>
 <!DOCTYPE html>
 <html lang="en">
